@@ -75,3 +75,5 @@ Donos de animais de estimação, protetores de animais, ONGs de resgate, clínic
 2. Sistema de alertas por e-mail para pessoas da região  
 3. Área para cadastrar animais encontrados  
 4. Integração com redes sociais para divulgação rápida  
+
+[comment]: o primeiro commit foi tudo errado, perdão :C
