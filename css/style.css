@@ -10,6 +10,11 @@ body {
     background: #FDF4DB;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 h1 {
     font-size: 48px;
     font-weight: bold;
@@ -89,8 +94,7 @@ footer {
 .nav-bar-center {
     display: flex;
     align-items: center;
-    padding-right: 175px;
-
+    padding-right: 300px;
 }
 
 .nav-bar-right {
@@ -103,6 +107,20 @@ footer {
     align-items: center;
     gap: 30px;
     padding: 0;
+    margin: 0;
+}
+
+.circle {
+    background-color: #5F8D4E;
+    z-index: 1;
+    border-radius: 100%;
+    display: flex;
+    height: 75px;
+    width: 75px;
+}
+
+.SiteLogoName {
+    color: white;
     margin: 0;
 }
 
@@ -119,12 +137,12 @@ footer {
 .btn-default {
     border-radius: 10px;
     border-color: black;
-    background: #5F8D4E;
-    width: 150px;
-    height: 50px;
+    background: #E3963E;
+    width: 250px;
+    height: 75px;
     color: white;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 25px;
 }
 
 .btn-default:hover {
@@ -227,7 +245,7 @@ h2 {
 
 .btn-filter {
     border-radius: 10px;
-    background: #5F8D4E;
+    background: #E3963E;
     color: white;
     font-weight: bold;
     height: 40px;
@@ -271,7 +289,7 @@ h2 {
     border-radius: 10px;
     margin-left: 10px;
     margin-right: 10px;
-    background: #78AA66;
+    background: #5F8D4E;
     color: white;
     font-weight: bold;
 }
@@ -319,7 +337,7 @@ h2 {
 .btn-found-dog {
     display: flex;
     border-radius: 10px;
-    background: #5F8D4E;
+    background: #E3963E;
     color: white;
     align-items: center;
     justify-content: center;
@@ -430,7 +448,7 @@ h2 {
     height: 50px;
     display: flex;
     border-radius: 10px;
-    background: #5F8D4E;
+    background: #E3963E;
     color: white;
     font-size: 20px;
     font-weight: bold;
@@ -485,14 +503,6 @@ h2 {
     background: #FFF;
 }
 
-.pet-age {
-    width: 30px;
-    height: 30px;
-    border-radius: 10px;
-    border: 1px solid #000;
-    background: #FFF;
-}
-
 .dog-race {
     width: 150px;
     height: 30px;
@@ -510,47 +520,16 @@ h2 {
 }
 
 .pet-adorno {
-    width: 150px;
+    width: 30px;
     height: 30px;
     border-radius: 10px;
     border: 1px solid #000;
     background: #FFF;
 }
 
-.pet-mood {
-    width: 150px;
-    height: 30px;
-    border-radius: 10px;
-    border: 1px solid #000;
-    background: #FFF;
-}
-
-.pet-date {
-    width: 115px;
-    height: 30px;
-    border-radius: 10px;
-    border: 1px solid #000;
-    background: #FFF;
-}
-
-.pet-time {
-    width: 65px;
-    height: 30px;
-    border-radius: 10px;
-    border: 1px solid #000;
-    background: #FFF;
-}
 
 .pet-neighbordhood {
-    width: 115px;
-    height: 30px;
-    border-radius: 10px;
-    border: 1px solid #000;
-    background: #FFF;
-}
-
-.pet-street {
-    width: 175px;
+    width: 300px;
     height: 30px;
     border-radius: 10px;
     border: 1px solid #000;
@@ -558,7 +537,7 @@ h2 {
 }
 
 .pet-reference {
-    width: 175px;
+    width: 300px;
     height: 30px;
     border-radius: 10px;
     border: 1px solid #000;
@@ -569,6 +548,12 @@ h2 {
     display: flex;
     flex-direction: column;
     
+}
+
+.form-obj2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .form-line {
@@ -588,7 +573,7 @@ h2 {
     object-fit: cover;
     border-radius: 15px;
 }
-
+a
 #zoom {
   zoom: 1.3;
 }
