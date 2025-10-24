@@ -2,13 +2,29 @@ html {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 body {
     margin: 0;
     padding: 0;
     background: #FDF4DB;
+    max-width: 100%;
+    overflow-x: hidden;
 }
+
 
 a {
     text-decoration: none;
@@ -458,7 +474,7 @@ h2 {
 
 .title-create h1 {
     margin-left: 150px;
-    margin-top:20px;
+    margin-top: 20px;
     margin-bottom: 10px;
 }
 
@@ -547,7 +563,7 @@ h2 {
 .form-obj {
     display: flex;
     flex-direction: column;
-    
+
 }
 
 .form-obj2 {
@@ -573,7 +589,224 @@ h2 {
     object-fit: cover;
     border-radius: 15px;
 }
-a
-#zoom {
-  zoom: 1.3;
+
+a #zoom {
+    zoom: 1.3;
+}
+
+
+@media (max-width: 768px) {
+
+    h1 {
+        font-size: 32px;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    header {
+        height: auto;
+        position: static;
+    }
+
+    .nav-bar {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .nav-bar-center {
+        padding-right: 0;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-bar-right {
+        width: 100%;
+    }
+
+    .btn-default {
+        width: 100%;
+        height: 60px;
+        font-size: 20px;
+    }
+
+    .home-landing {
+        height: auto;
+        padding: 50px 15px;
+        text-align: center;
+    }
+
+    #buttons {
+        flex-direction: column;
+        gap: 20px;
+        width: 90%;
+        max-width: 350px;
+    }
+
+    .desc-content {
+        flex-direction: column;
+        gap: 40px;
+        padding: 20px;
+    }
+
+    #desc-left,
+    #desc-right {
+        max-width: 90%;
+        text-align: center;
+    }
+
+    #desc-center img {
+        width: 150px;
+    }
+
+    .dog-main-menu {
+        margin: 20px 10px;
+        border-radius: 20px;
+    }
+
+    .dog-top-menu,
+    .dog-bottom-menu {
+        height: auto;
+        padding: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .dog-bottom-menu {
+        border-radius: 0 0 20px 20px;
+    }
+
+    .dog-menu {
+        padding: 20px 10px;
+    }
+
+    .found-dog-container {
+        width: 95%;
+        max-width: 350px;
+        height: auto;
+    }
+
+    .found-dog-photo img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+
+    .content-box-post {
+        flex-direction: column;
+        height: auto;
+        margin: 20px 10px;
+        border-width: 5px;
+        padding: 15px;
+    }
+
+    .content-box-post .content-box-imgs {
+        display: block;
+        position: static;
+        margin: 0;
+    }
+
+    .content-box-post .big-img-container {
+        width: 100%;
+        height: 300px;
+    }
+
+    .content-box-post .imgs-box-bottom {
+        position: static;
+        top: auto;
+        bottom: auto;
+        width: 100%;
+        margin-top: 10px;
+        gap: 10px;
+    }
+
+    .content-box-post .small-img-container {
+        width: 65px;
+        height: 65px;
+    }
+
+    .content-box-post .content-box-desc {
+        max-width: 100%;
+        margin: 20px 0 0 0;
+    }
+
+    .btn-confirm-post {
+        width: 100%;
+    }
+
+    .title-create h1 {
+        margin-left: 20px;
+    }
+
+    .content-box-create-post {
+        flex-direction: column;
+        height: auto;
+        margin: 20px 10px;
+        padding: 15px;
+    }
+
+    .big-img-container-create {
+        width: 100%;
+        height: 250px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .big-img-container-create img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+
+    .content-box-create-desc {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+    }
+
+    .form-line {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .pet-name,
+    .pet-description,
+    .social,
+    .dog-race,
+    .pet-color,
+    .pet-adorno,
+    .pet-neighbordhood,
+    .pet-reference {
+        width: 100%;
+        height: 40px;
+    }
+
+    .pet-description {
+        height: 100px;
+    }
+
+    .pet-adorno {
+        width: 30px;
+        height: 30px;
+    }
+
+    .form-obj,
+    .form-obj2 {
+        align-items: stretch;
+    }
+
+    footer {
+        text-align: center;
+        padding: 0 20px;
+    }
 }
