@@ -1,0 +1,193 @@
+git 
+body.admin-login-page {
+    background: #FDF4DB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Poppins', 'Roboto', sans-serif;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 450px;
+    padding: 40px;
+    background: #FFE3CE; 
+    border: 5px solid #5F8D4E;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-logo {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 75px;
+    height: 75px;
+}
+
+.login-box h1 {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #285430; 
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #285430;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    height: 45px;
+    padding: 0 15px;
+    border-radius: 10px;
+    border: 1px solid #5F8D4E;
+    background: #FFF;
+    font-size: 16px;
+    font-family: 'Poppins', 'Roboto', sans-serif;
+}
+
+.btn-login-link {
+    text-decoration: none;
+}
+
+.btn-login {
+    width: 100%; 
+    height: 60px;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.btn-logout {
+    background: #c94040;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.btn-logout:hover {
+    background: #a13333;
+    cursor: pointer;
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    min-height: calc(100vh - 185px); 
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.dashboard-container h1 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.admin-post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-post-item {
+    display: flex;
+    flex-wrap: wrap; 
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: #FFE3CE; 
+    border: 3px solid #5F8D4E; 
+    border-radius: 15px;
+}
+
+.admin-post-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #FDF4DB;
+}
+
+.admin-post-info {
+    flex: 1;
+    min-width: 250px;
+}
+
+.admin-post-info h3 {
+    margin-bottom: 5px;
+}
+
+.admin-post-actions {
+    margin-left: auto;
+}
+
+.btn-delete {
+    background: #E33E3E;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 25px;
+    font-family: 'Poppins', 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-delete:hover {
+    background: #c03030;
+}
+
+@media (max-width: 768px) {
+    .login-box {
+        padding: 30px 20px;
+    }
+
+    .admin-post-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .admin-post-img {
+        width: 100%;
+        height: 180px; 
+    }
+    
+    .admin-post-info {
+        min-width: 100%;
+    }
+
+    .admin-post-actions {
+        margin-left: 0; 
+        width: 100%;
+    }
+    
+    .btn-delete {
+        width: 100%;
+    }
+    
+    .nav-bar-right {
+        width: auto; 
+    }
+}
