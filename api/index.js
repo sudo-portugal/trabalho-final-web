@@ -1,16 +1,15 @@
-// /api/server.js (CÓDIGO DE BACKEND)
+// /api/index.js (VERSÃO COMMONJS - VAI FUNCIONAR)
 
-import express from "express";
-import pkg from "pg";
-import dotenv from "dotenv";
-import bcrypt from "bcryptjs";
-import multer from "multer";
-import { put } from "@vercel/blob";
+const express = require("express");
+const { Pool } = require("pg"); // Mudança aqui
+const dotenv = require("dotenv");
+const bcrypt = require("bcryptjs");
+const multer = require("multer");
+const { put } = require("@vercel/blob"); // Mudança aqui
 
 dotenv.config();
 
 const app = express();
-const { Pool } = pkg;
 const upload = multer({ storage: multer.memoryStorage() });
 
 const pool = new Pool({
@@ -20,6 +19,7 @@ const pool = new Pool({
   },
 });
 
+// Rota GET (para /api/)
 app.get("/", async (req, res) => {
   try {
     const query = `
@@ -43,6 +43,7 @@ app.get("/", async (req, res) => {
   }
 });
 
+// Rota POST (para /api/)
 app.post("/", upload.array('images'), async (req, res) => {
   
   const {
@@ -76,7 +77,6 @@ app.post("/", upload.array('images'), async (req, res) => {
 
   try {
     await client.query('BEGIN');
-
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -90,18 +90,9 @@ app.post("/", upload.array('images'), async (req, res) => {
       RETURNING id;
     `;
     const postValues = [
-      pet_name,
-      description,
-      breed,
-      color,
-      neighborhood,
-      accessory,
-      location_reference,
-      whatsapp,
-      instagram,
-      pet_age || 0,
-      hashedPassword,
-      adress,
+      pet_name, description, breed, color, neighborhood,
+      accessory, location_reference, whatsapp, instagram,
+      pet_age || 0, hashedPassword, adress,
     ];
 
     const postResult = await client.query(insertPostQuery, postValues);
@@ -122,7 +113,6 @@ app.post("/", upload.array('images'), async (req, res) => {
     }
 
     await client.query('COMMIT');
-
     res.status(201).json({
       message: "Post criado com sucesso!",
       postId: newPostId,
@@ -137,4 +127,9 @@ app.post("/", upload.array('images'), async (req, res) => {
   }
 });
 
-export default app;
+// MUDANÇA FINAL: Exportar para Vercel
+module.exports = app;git add .
+
+git commit -m "vou me matar futebol clube"
+
+git push
