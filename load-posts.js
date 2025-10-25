@@ -1,19 +1,18 @@
-// /load-posts.js (CÓDIGO DE FRONTEND)
-
 document.addEventListener("DOMContentLoaded", async () => {
 
   const dogMenu = document.querySelector(".dog-menu");
+
   dogMenu.innerHTML = '<p class="loading-message">Carregando posts, por favor aguarde...</p>';
 
   try {
-    // Chama a nova URL da API
-    const response = await fetch('/api/');
+    const response = await fetch('/lost_dog_posts');
 
     if (!response.ok) {
       throw new Error(`Erro na requisição: ${response.statusText}`);
     }
 
     const posts = await response.json();
+
     dogMenu.innerHTML = '';
 
     if (posts.length === 0) {
@@ -46,6 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           </a>
         </div>
       `;
+
       dogMenu.appendChild(postElement);
     });
 
