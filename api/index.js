@@ -19,7 +19,6 @@ const pool = new Pool({
   },
 });
 
-// Rota GET (para /api/)
 app.get("/", async (req, res) => {
   try {
     const query = `
