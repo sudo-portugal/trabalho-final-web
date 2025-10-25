@@ -1,24 +1,17 @@
+// /api/server.js (CÓDIGO DE BACKEND)
+
 import express from "express";
 import pkg from "pg";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
-
-
-import multer from "multer"; 
-import { put } from "@vercel/blob"; 
-
+import multer from "multer";
+import { put } from "@vercel/blob";
 
 dotenv.config();
 
 const app = express();
 const { Pool } = pkg;
-
-
-app.use(express.json()); 
-
-
 const upload = multer({ storage: multer.memoryStorage() });
-
 
 const pool = new Pool({
   connectionString: process.env.URL_BD,
@@ -27,25 +20,7 @@ const pool = new Pool({
   },
 });
 
-
-app.get("/api", async (req, res) => {
-
-  console.log("Rota GET /api solicitada");
-  let dbStatus = "ok";
-  try {
-    await pool.query("SELECT 1");
-  } catch (e) {
-    dbStatus = e.message;
-  }
-  res.json({
-    descricao: "API para MeuCachorroTaSumido",
-    autor: "Indivíduos Computaria",
-    statusBD: dbStatus
-  });
-});
-
-
-app.get('/lost_dog_posts', async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     const query = `
       SELECT 
@@ -68,7 +43,7 @@ app.get('/lost_dog_posts', async (req, res) => {
   }
 });
 
-app.post('/lost_dog_posts', upload.array('images'), async (req, res) => {
+app.post("/", upload.array('images'), async (req, res) => {
   
   const {
     pet_name,
@@ -132,8 +107,6 @@ app.post('/lost_dog_posts', upload.array('images'), async (req, res) => {
     const postResult = await client.query(insertPostQuery, postValues);
     const newPostId = postResult.rows[0].id;
 
-    const uploadedImageUrls = [];
-    
     for (const file of files) {
       const { url } = await put(
         `posts/${newPostId}/${file.originalname}`,
@@ -141,8 +114,6 @@ app.post('/lost_dog_posts', upload.array('images'), async (req, res) => {
         { access: 'public' }
       );
       
-      uploadedImageUrls.push(url);
-
       const insertImageQuery = `
         INSERT INTO post_images (post_id, image_url)
         VALUES ($1, $2)
@@ -155,7 +126,6 @@ app.post('/lost_dog_posts', upload.array('images'), async (req, res) => {
     res.status(201).json({
       message: "Post criado com sucesso!",
       postId: newPostId,
-      images: uploadedImageUrls,
     });
 
   } catch (err) {
@@ -167,5 +137,4 @@ app.post('/lost_dog_posts', upload.array('images'), async (req, res) => {
   }
 });
 
-// Necessário para a Vercel
 export default app;

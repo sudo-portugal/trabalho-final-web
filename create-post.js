@@ -1,148 +1,71 @@
-// Este é o novo conteúdo do seu arquivo /api/server.js
+// /create-post.js (CÓDIGO DE FRONTEND)
 
-import express from "express";
-import pkg from "pg";
-import dotenv from "dotenv";
-import bcrypt from "bcryptjs";
-import multer from "multer";
-import { put } from "@vercel/blob";
+document.addEventListener("DOMContentLoaded", function() {
 
-dotenv.config();
+    const postForm = document.getElementById("create-post-form");
+    const imageInput = document.getElementById("pet-image-upload");
+    const imagePreviewContainer = document.getElementById("image-preview-container");
+    const submitButton = document.getElementById("submit-button");
+    const loadingMessage = document.getElementById("loading-message");
 
-const app = express();
-const { Pool } = pkg;
-const upload = multer({ storage: multer.memoryStorage() });
+    imageInput.addEventListener("change", function() {
+        imagePreviewContainer.innerHTML = ''; 
+        const files = this.files;
+        if (files.length === 0) {
+            imagePreviewContainer.innerHTML = '<img src="/imgs/upload-img.png" alt="Selecione a imagem do seu cachorro." id="image-preview">';
+            return;
+        }
 
-const pool = new Pool({
-  connectionString: process.env.URL_BD,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
-
-// ==========================================================
-// ROTA GET
-// Vercel irá mapear 'GET /api/server' para 'GET /' neste arquivo
-// ==========================================================
-app.get("/", async (req, res) => {
-  try {
-    const query = `
-      SELECT 
-        p.id, p.pet_name, p.description, p.breed, p.color, p.neighborhood,
-        p.accessory, p.location_reference, p.whatsapp, p.instagram,
-        p.created_at, p.pet_age, p.adress,
-        COALESCE(
-          (SELECT json_agg(json_build_object('id', i.id, 'url', i.image_url))
-           FROM post_images i WHERE i.post_id = p.id),
-          '[]'::json
-        ) as images
-      FROM lost_dog_posts p
-      ORDER BY p.created_at DESC
-    `;
-    const result = await pool.query(query);
-    res.status(200).json(result.rows);
-  } catch (err) {
-    console.error('Erro ao buscar posts:', err);
-    res.status(500).json({ error: 'Erro interno do servidor.' });
-  }
-});
-
-// ==========================================================
-// ROTA POST
-// Vercel irá mapear 'POST /api/server' para 'POST /' neste arquivo
-// ==========================================================
-app.post("/", upload.array('images'), async (req, res) => {
-  
-  const {
-    pet_name,
-    description,
-    breed,
-    color,
-    neighborhood,
-    accessory,
-    location_reference,
-    whatsapp,
-    instagram,
-    pet_age,
-    password,
-    adress,
-  } = req.body;
-
-  const files = req.files;
-
-  if (!pet_name || !description || !breed || !color || !neighborhood || !password) {
-    return res.status(400).json({
-      error: 'Campos obrigatórios faltando: pet_name, description, breed, color, neighborhood, password.',
-    });
-  }
-
-  if (!files || files.length === 0) {
-    return res.status(400).json({ error: 'Você deve enviar pelo menos uma imagem.' });
-  }
-
-  const client = await pool.connect();
-
-  try {
-    await client.query('BEGIN');
-
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const insertPostQuery = `
-      INSERT INTO lost_dog_posts (
-        pet_name, description, breed, color, neighborhood, 
-        accessory, location_reference, whatsapp, instagram, 
-        pet_age, password, adress
-      ) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-      RETURNING id;
-    `;
-    const postValues = [
-      pet_name,
-      description,
-      breed,
-      color,
-      neighborhood,
-      accessory,
-      location_reference,
-      whatsapp,
-      instagram,
-      pet_age || 0,
-      hashedPassword,
-      adress,
-    ];
-
-    const postResult = await client.query(insertPostQuery, postValues);
-    const newPostId = postResult.rows[0].id;
-
-    for (const file of files) {
-      const { url } = await put(
-        `posts/${newPostId}/${file.originalname}`,
-        file.buffer,
-        { access: 'public' }
-      );
-      
-      const insertImageQuery = `
-        INSERT INTO post_images (post_id, image_url)
-        VALUES ($1, $2)
-      `;
-      await client.query(insertImageQuery, [newPostId, url]);
-    }
-
-    await client.query('COMMIT');
-
-    res.status(201).json({
-      message: "Post criado com sucesso!",
-      postId: newPostId,
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = "100%";
+                    img.style.height = "auto";
+                    img.style.objectFit = "cover";
+                    img.style.borderRadius = "15px";
+                    img.style.marginBottom = "10px";
+                    imagePreviewContainer.appendChild(img);
+                }
+                reader.readAsDataURL(file);
+            }
+        }
     });
 
-  } catch (err) {
-    await client.query('ROLLBACK');
-    console.error('Erro ao criar post:', err);
-    res.status(500).json({ error: 'Erro interno do servidor.' });
-  } finally {
-    client.release();
-  }
-});
+    postForm.addEventListener("submit", async function(event) {
+        event.preventDefault(); 
+        submitButton.disabled = true;
+        submitButton.style.opacity = 0.5;
+        loadingMessage.style.display = 'block';
 
-export default app;
+        // Pega todos os campos do form automaticamente
+        const formData = new FormData(postForm); 
+
+        try {
+            // Chama a nova URL da API
+            const response = await fetch('/api/server', {
+                method: 'POST',
+                body: formData 
+            });
+
+            if (response.ok) {
+                alert("Post criado com sucesso!");
+                window.location.href = "/lost-dog-menu.html";
+            } else {
+                const errorData = await response.json();
+                alert(`Erro ao criar o post: ${errorData.message || 'Tente novamente.'}`);
+            }
+
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+            alert("Houve um erro de conexão. Verifique sua internet e tente novamente.");
+        } finally {
+            submitButton.disabled = false;
+            submitButton.style.opacity = 1;
+            loadingMessage.style.display = 'none';
+        }
+    });
+});
