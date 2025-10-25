@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     // Chama a nova URL da API
-    const response = await fetch('/api/server');
+    const response = await fetch('/lost_dog_posts');
 
     if (!response.ok) {
       throw new Error(`Erro na requisição: ${response.statusText}`);
