@@ -22,13 +22,10 @@
         <div class="circle">
           <a href="index.html"><img src="/imgs/logo-75x75.png" id="logo-header"> </a>
         </div>
-
         <a href="index.html">
           <p class="SiteLogoName">MeuCachorroTáSumido</p>
         </a>
       </div>
-
-
       <div class="center">
         <div class="nav-bar-center">
           <ul class="nav-list">
@@ -37,7 +34,6 @@
           </ul>
         </div>
       </div>
-
       <div class="nav-bar-right">
       </div>
     </nav>
@@ -49,107 +45,120 @@
     </div>
 
     <div class="center">
-      <div class="content-box-create-post">
+      <form class="content-box-create-post" id="create-post-form">
+
         <div class="content-box-imgs">
           <div class="imgs-box-top">
-            <div class="big-img-container-create">
-              <img src="/imgs/upload-img.png" alt="Selecione a imagem do seu cachorro.">
+            <div class="big-img-container-create" id="image-preview-container">
+              <img src="/imgs/upload-img.png" alt="Selecione a imagem do seu cachorro." id="image-preview">
             </div>
+            
+            <label for="pet-image-upload" class="btn-default" style="width: 100%; height: 50px; font-size: 16px; margin-top: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+              Escolher Foto(s)
+            </label>
+            <input type="file" id="pet-image-upload" name="images" accept="image/*" multiple style="display: none;">
           </div>
-
         </div>
 
         <div class="content-box-create-desc">
           <div class="forms-left">
-            <form>
-              <h3>Nome do Pet</h3>
-              <input type="text" name="name" class="pet-name">
-              <h3>Descrição</h3>
-              <input type="text" name="desc" class="pet-description">
+            <h3>Nome do Pet</h3>
+            <input type="text" name="pet_name" class="pet-name" id="pet-name" required>
+            
+            <h3>Descrição</h3>
+            <input type="text" name="description" class="pet-description" id="pet-description" required>
 
+            <div class="content-box-social">
               <div class="content-box-social">
-                <div class="content-box-social">
-                  <i class="fa-brands fa-whatsapp"></i>
-                  <input type="number" name="whatszapp" class="social">
-                </div>
-
-                <div class="content-box-social">
-                  <i class="fa-brands fa-instagram"></i>
-                  <input type="text" name="instagram" class="social">
-                </div>
-
+                <i class="fa-brands fa-whatsapp"></i>
+                <input type="tel" name="whatsapp" class="social" id="pet-whatsapp" placeholder="Ex: 5531999998888" required>
               </div>
-            </form>
+              <div class="content-box-social">
+                <i class="fa-brands fa-instagram"></i>
+                <input type="text" name="instagram" class="social" id="pet-instagram" placeholder="Ex: @seu_usuario">
+              </div>
+            </div>
+            
+            <h3>Criar uma senha (para apagar o post)</h3>
+            <input type="password" name="password" class="pet-name" id="pet-password" required>
+
           </div>
 
           <div class="content-box-desc">
-            <form>
-              <div class="form-line">
-
-                <div class="form-obj">
-                  <h3>Raça</h3>
-                  <select name="race" class="dog-race">
-                    <option>Não sei</option>
-                    <option>Burro</option>
-                    <option>Não Burro</option>
-                  </select>
-                </div>
-
-                <div class="form-obj2">
-                  <h3>Adorno?</h3>
-                  <input type="text" name="adorno" class="pet-adorno">
-                </div>
-                
-                <div class="form-obj2">
-                  <h3>Cor</h3>
-                  <input type="text" name="color" class="pet-color">
-                </div>
+            <div class="form-line">
+              <div class="form-obj">
+                <h3>Raça</h3>
+                <select name="breed" class="dog-race" id="pet-breed" required>
+                  <option value="Não sei">Não sei</option>
+                  <option value="Vira-lata">Vira-lata</option>
+                  <option value="Labrador">Labrador</option>
+                  <option value="Poodle">Poodle</option>
+                  <option value="Bulldog">Bulldog</option>
+                  <option value="Pastor Alemão">Pastor Alemão</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+              
+              <div class="form-obj2">
+                  <h3>Idade (anos)</h3>
+                  <input type="number" name="pet_age" class="pet-color" id="pet-age" min="0">
               </div>
 
-              <div class="form-line">
-                
+              <div class="form-obj2">
+                <h3>Cor</h3>
+                <input type="text" name="color" class="pet-color" id="pet-color" required>
               </div>
+            </div>
 
-              <div class="form-line">
-                <div class="form-obj">
-                  <h3>Bairro</h3>
-                  <input type="text" name="neighbordhood" class="pet-neighbordhood">
-                </div>
+            <div class="form-line">
+              <div class="form-obj">
+                <h3>Bairro (onde sumiu)</h3>
+                <input type="text" name="neighborhood" class="pet-neighbordhood" id="pet-neighborhood" required>
               </div>
+            </div>
 
-              <div class="form-line">
-
-                <div class="form-obj">
-                  <h3>Referência</h3>
-                  <input type="text" name="reference" class="pet-reference">
-                </div>
+            <div class="form-line">
+              <div class="form-obj">
+                <h3>Referência (Ex: Perto do mercado)</h3>
+                <input type="text" name="location_reference" class="pet-reference" id="pet-reference">
               </div>
-            </form>
-
-            <button class="btn-confirm-post">Concluir</button>
+            </div>
+            
+            <div class="form-line">
+              <div class="form-obj">
+                <h3>Endereço (Rua, Nº - Opcional)</h3>
+                <input type="text" name="adress" class="pet-neighbordhood" id="pet-adress">
+              </div>
+            </div>
+            
+            <div class="form-line">
+              <div class="form-obj">
+                <h3>Acessório (Ex: Coleira vermelha)</h3>
+                <input type="text" name="accessory" class="pet-neighbordhood" id="pet-accessory">
+              </div>
+            </div>
+            
+            <button type="submit" class="btn-confirm-post" id="submit-button">Concluir</button>
+            <p id="loading-message" style="display: none; color: #285430; font-weight: bold; text-align: center; margin-top: 10px;">Enviando post, por favor aguarde...</p>
           </div>
         </div>
-      </div>
+      </form>
     </div>
-
-
-
   </main>
 
   <footer>
     <div class="footer-left">
       <img src="/imgs/logo-50x50.png" alt="" class="logo-footer">
     </div>
-
     <div class="footer-center">
       <span class="copyright">
         &copy 2025 MeuCachorroTáSumido
       </span>
     </div>
-
     <div class="footer-right">
-
     </div>
   </footer>
 
-  </hmtl>
+  <script src="/js/create-post-backend.js"></script>
+</body>
+</html>
