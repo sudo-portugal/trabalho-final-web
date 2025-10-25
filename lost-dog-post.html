@@ -47,69 +47,65 @@
             <div class="content-box-post">
                 <div class="content-box-imgs">
                     <div class="imgs-box-top">
-                        <div class="big-img-container">
-                            <img src="/imgs/cachorro-burro.png" alt="Selecione a imagem do seu cachorro.">
+                        <div class="big-img-container" id="big-img-container">
                         </div>
                     </div>
-
-                    <div class="imgs-box-bottom">
-                        <div class="small-img-container">
-                            <img src="/imgs/cachorro-burro.png" alt="">
-                        </div>
-                        <div class="small-img-container">
-                            <img src="/imgs/cachorro-burro.png" alt="">
-                        </div>
-                        <div class="small-img-container">
-                            <img src="/imgs/cachorro-burro.png" alt="">
-                        </div>
+                    <div class="imgs-box-bottom" id="small-imgs-container">
                     </div>
                 </div>
+
                 <div class="content-box-desc">
-                    <h1>Burros</h1>
-                    <h2>Idade: 69 anos</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae
-                        pellentesque
-                        sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna
-                        tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl
-                        malesuada
-                        lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora
-                        torquent per conubia nostra inceptos himenaeos.</p>
+                    <h1 id="post-pet-name">Carregando...</h1>
+                    <h2 id="post-pet-age"></h2>
+                    <p id="post-description"></p>
 
                     <div class="content-box-social">
-                        <div class="social-line">
+                        <div class="social-line" id="social-whatsapp" style="display: none;">
                             <i class="fa-brands fa-whatsapp"></i>
-                            <h2>(69) 969696969</h2>
+                            <h2 id="post-whatsapp"></h2>
                         </div>
-
-                        <div class="social-line">
+                        <div class="social-line" id="social-instagram" style="display: none;">
                             <i class="fa-brands fa-instagram"></i>
-                            <h2>@duzeba</h2>
+                            <h2 id="post-instagram"></h2>
                         </div>
                     </div>
                 </div>
 
                 <div class="content-box-desc-right">
-                    <h2>Raça: Burro</h2>
-                    <h2>Dia do sumiço: 30/02/1969</h2>
-                    <h2>Possível horário: 01:69</h2>
-                    <h2>Cor: Cinza</h2>
-                    <h2>Adorno: Coleira marrom</h2>
+                    <h2 id="post-breed"></h2>
+                    <h2 id="post-created-at"></h2>
+                    <h2 id="post-color"></h2>
+                    <h2 id="post-accessory"></h2>
                     <h2>Endereço:</h2>
                     <div id="post-local">
-                        <p>Bairro: Vila Canaã, Rua Clemente Ladeia</p>
-                        <p>Referência: Canaã Supermercado</p>
+                        <p id="post-neighborhood"></p>
+                        <p id="post-adress"></p>
+                        <p id="post-location-reference"></p>
                     </div>
 
-                    <button class="btn-confirm-post">Encerrar post</button>
-
+                    <button class="btn-confirm-post" id="btn-open-delete-modal">Encerrar post</button>
                 </div>
-
-
 
             </div>
         </div>
     </main>
 
+    <div id="delete-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h2>Encerrar Post</h2>
+            <p>Por favor, digite a senha do post para confirmar a exclusão.</p>
+
+            <label for="delete-password-input">Senha:</label>
+            <input type="password" id="delete-password-input" class="modal-input">
+
+            <p id="delete-feedback-message" class="feedback-message" style="display: none;"></p>
+
+            <div class="modal-buttons">
+                <button id="btn-cancel-delete" class="modal-btn modal-btn-cancel">Cancelar</button>
+                <button id="btn-confirm-delete" class="modal-btn modal-btn-confirm">Confirmar Exclusão</button>
+            </div>
+        </div>
+    </div>
     <footer>
         <div class="footer-left">
             <img src="/imgs/logo-50x50.png" alt="" class="logo-footer">
@@ -125,5 +121,9 @@
 
         </div>
     </footer>
+
+    <script src="/js/load-single-post.js"></script>
+
+</body>
 
 </html>
