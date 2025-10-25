@@ -10,10 +10,6 @@
       "src": "/lost_dog_posts",
       "dest": "/server.js",
       "methods": ["GET", "POST"]
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
     }
   ]
 }
