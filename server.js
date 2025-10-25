@@ -114,6 +114,4 @@ app.post('/lost_dog_posts', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Serviço rodando na porta: ${port}`);
-});
+export default app;
