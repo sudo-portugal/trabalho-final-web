@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "Banco de Dados para a aplicação: MeuCachorroTáSumido",
   "main": "server.js",
-  "scripts": {
-    "build": "echo 'Build'"
-  },
+  "scripts": {},
   "keywords": [],
   "author": "Indivíduos Computaria",
   "license": "ISC",
