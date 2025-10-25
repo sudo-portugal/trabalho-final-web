@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         try {
             // Chama a nova URL da API
-            const response = await fetch('/lost_dog_posts', {
+            const response = await fetch('/api/server', {
                 method: 'POST',
                 body: formData 
             });
