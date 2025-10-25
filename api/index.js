@@ -127,9 +127,4 @@ app.post("/", upload.array('images'), async (req, res) => {
   }
 });
 
-// MUDANÇA FINAL: Exportar para Vercel
-module.exports = app;git add .
-
-git commit -m "vou me matar futebol clube"
-
-git push
+module.exports = app;
