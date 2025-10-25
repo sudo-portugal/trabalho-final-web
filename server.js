@@ -3,13 +3,22 @@ import pkg from "pg";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 
+
+import multer from "multer"; 
+import { put } from "@vercel/blob"; 
+
+
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
 const { Pool } = pkg;
 
-app.use(express.json());
+
+app.use(express.json()); 
+
+
+const upload = multer({ storage: multer.memoryStorage() });
+
 
 const pool = new Pool({
   connectionString: process.env.URL_BD,
@@ -18,8 +27,10 @@ const pool = new Pool({
   },
 });
 
-app.get("/", async (req, res) => {
-  console.log("Rota GET / solicitada");
+
+app.get("/api", async (req, res) => {
+
+  console.log("Rota GET /api solicitada");
   let dbStatus = "ok";
   try {
     await pool.query("SELECT 1");
@@ -33,15 +44,21 @@ app.get("/", async (req, res) => {
   });
 });
 
+
 app.get('/lost_dog_posts', async (req, res) => {
   try {
     const query = `
       SELECT 
-        id, pet_name, description, breed, color, neighborhood,
-        accessory, location_reference, whatsapp, instagram,
-        created_at, pet_age, adress
-      FROM lost_dog_posts
-      ORDER BY created_at DESC
+        p.id, p.pet_name, p.description, p.breed, p.color, p.neighborhood,
+        p.accessory, p.location_reference, p.whatsapp, p.instagram,
+        p.created_at, p.pet_age, p.adress,
+        COALESCE(
+          (SELECT json_agg(json_build_object('id', i.id, 'url', i.image_url))
+           FROM post_images i WHERE i.post_id = p.id),
+          '[]'::json
+        ) as images
+      FROM lost_dog_posts p
+      ORDER BY p.created_at DESC
     `;
     const result = await pool.query(query);
     res.status(200).json(result.rows);
@@ -51,7 +68,8 @@ app.get('/lost_dog_posts', async (req, res) => {
   }
 });
 
-app.post('/lost_dog_posts', async (req, res) => {
+app.post('/lost_dog_posts', upload.array('images'), async (req, res) => {
+  
   const {
     pet_name,
     description,
@@ -67,27 +85,36 @@ app.post('/lost_dog_posts', async (req, res) => {
     adress,
   } = req.body;
 
+  const files = req.files;
+
   if (!pet_name || !description || !breed || !color || !neighborhood || !password) {
     return res.status(400).json({
       error: 'Campos obrigatórios faltando: pet_name, description, breed, color, neighborhood, password.',
     });
   }
 
+  if (!files || files.length === 0) {
+    return res.status(400).json({ error: 'Você deve enviar pelo menos uma imagem.' });
+  }
+
+  const client = await pool.connect();
+
   try {
+    await client.query('BEGIN');
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const insertQuery = `
+    const insertPostQuery = `
       INSERT INTO lost_dog_posts (
         pet_name, description, breed, color, neighborhood, 
         accessory, location_reference, whatsapp, instagram, 
         pet_age, password, adress
       ) 
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-      RETURNING *; 
+      RETURNING id;
     `;
-
-    const values = [
+    const postValues = [
       pet_name,
       description,
       breed,
@@ -97,21 +124,48 @@ app.post('/lost_dog_posts', async (req, res) => {
       location_reference,
       whatsapp,
       instagram,
-      pet_age,
+      pet_age || 0,
       hashedPassword,
       adress,
     ];
 
-    const result = await pool.query(insertQuery, values);
+    const postResult = await client.query(insertPostQuery, postValues);
+    const newPostId = postResult.rows[0].id;
 
-    const newPost = result.rows[0];
-    delete newPost.password;
+    const uploadedImageUrls = [];
+    
+    for (const file of files) {
+      const { url } = await put(
+        `posts/${newPostId}/${file.originalname}`,
+        file.buffer,
+        { access: 'public' }
+      );
+      
+      uploadedImageUrls.push(url);
 
-    res.status(201).json(newPost);
+      const insertImageQuery = `
+        INSERT INTO post_images (post_id, image_url)
+        VALUES ($1, $2)
+      `;
+      await client.query(insertImageQuery, [newPostId, url]);
+    }
+
+    await client.query('COMMIT');
+
+    res.status(201).json({
+      message: "Post criado com sucesso!",
+      postId: newPostId,
+      images: uploadedImageUrls,
+    });
+
   } catch (err) {
+    await client.query('ROLLBACK');
     console.error('Erro ao criar post:', err);
     res.status(500).json({ error: 'Erro interno do servidor.' });
+  } finally {
+    client.release();
   }
 });
 
+// Necessário para a Vercel
 export default app;
