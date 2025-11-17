@@ -600,17 +600,13 @@ a #zoom {
     zoom: 1.3;
 }
 
-/* --- ESTILOS DO MODAL DE DELEÇÃO --- */
-
 .modal-overlay {
     position: fixed;
-    /* Fica por cima de tudo */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    /* Fundo escuro semi-transparente */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -639,7 +635,6 @@ a #zoom {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    /* Garante que o padding não estoure a largura */
 }
 
 .modal-buttons {
@@ -665,13 +660,58 @@ a #zoom {
 
 .modal-btn-confirm {
     background-color: #d9534f;
-    /* Vermelho perigo */
     color: white;
 }
 
 .feedback-message {
     font-size: 0.9em;
     margin-top: 10px;
+}
+
+
+.big-img-container-create {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;   
+    justify-content: flex-start; 
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 10px;    
+    
+
+    width: 100%;
+    height: 250px;         
+    overflow-y: auto;       
+    background-color: #e0e0e0;
+    border: 2px dashed #aaa;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box; 
+}
+
+
+.preview-thumb {
+    width: 70px !important;  
+    height: 70px !important; 
+    object-fit: cover;      
+    border-radius: 5px;
+    border: 1px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    margin: 0 !important;   
+}
+
+#image-preview {
+    max-width: 100px; 
+    height: auto;
+    margin: auto;     
+    display: block;
+}
+
+.imgs-box-top {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 @media (max-width: 768px) {
@@ -887,5 +927,53 @@ a #zoom {
     footer {
         text-align: center;
         padding: 0 20px;
+    }
+
+    .content-box-create-post, 
+    .content-box-post {
+        flex-direction: column;
+        width: 95%;             
+        margin: 20px auto;      
+        padding: 15px;          
+    }
+
+    .content-box-imgs, 
+    .big-img-container-create {
+        width: 100%;
+        max-width: 100%;
+    }
+
+
+    .big-img-container-create {
+        height: 200px;
+    }
+
+    .content-box-create-desc,
+    .content-box-desc {
+        flex-direction: column;
+        width: 100%;
+        margin: 20px 0 0 0; 
+        gap: 10px;
+    }
+
+    .forms-left, 
+    .content-box-desc {
+        width: 100%;
+    }
+
+    .content-box-create-post input,
+    .content-box-create-post select,
+    .content-box-create-post textarea {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    .form-line {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .btn-confirm-post {
+        width: 100%;
     }
 }
