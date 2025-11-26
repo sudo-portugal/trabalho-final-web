@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const postId = urlParams.get('id');
+  const API_URL = 'https://back-end-tf-web-two.vercel.app/';
 
   const mainContainer = document.querySelector('.content-box-post');
 
@@ -10,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const response = await fetch(`/lost_dog_posts/${postId}`);
+    const response = await fetch(`${API_URL}/lost_dog_posts/${postId}`);
     
     if (!response.ok) {
       throw new Error(`Post não encontrado (ID: ${postId})`);
@@ -120,7 +121,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       confirmBtn.disabled = true;
 
       try {
-        const deleteResponse = await fetch(`/lost_dog_posts/${postId}`, {
+        const deleteResponse = await fetch(`${API_URL}/lost_dog_posts/${postId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

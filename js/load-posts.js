@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", async () => {
-
   const dogMenu = document.querySelector(".dog-menu");
+  const API_URL = 'https://back-end-tf-web-two.vercel.app';
 
   dogMenu.innerHTML = '<p class="loading-message">Carregando posts, por favor aguarde...</p>';
 
   try {
-    const response = await fetch('/lost_dog_posts');
+    const response = await fetch(`${API_URL}/lost_dog_posts`);
 
     if (!response.ok) {
       throw new Error(`Erro na requisição: ${response.statusText}`);
@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       postElement.className = 'found-dog-container';
 
       const imageUrl = (post.images && post.images.length > 0) 
-                       ? post.images[0].url 
-                       : '/imgs/upload-img.png';
+                         ? post.images[0].url 
+                         : '/imgs/upload-img.png';
       
       const altText = `Foto de ${post.pet_name || 'cachorro perdido'}`;
 
@@ -51,6 +51,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   } catch (error) {
     console.error('Erro ao carregar posts:', error);
-    dogMenu.innerHTML = '<p class="loading-message" style="color: red;">Erro ao carregar posts. Tente recarregar a página.</p>';
+    dogMenu.innerHTML = '<p class="loading-message" style="color: red;">Erro ao carregar posts. Verifique o URL do backend.</p>';
   }
 });
