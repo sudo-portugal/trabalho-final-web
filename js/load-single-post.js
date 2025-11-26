@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const postId = urlParams.get('id');
-  const API_URL = 'https://back-end-tf-web-two.vercel.app/';
+  const API_URL = 'https://back-end-tf-web-two.vercel.app';
 
   const mainContainer = document.querySelector('.content-box-post');
 
