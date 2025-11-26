@@ -56,19 +56,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     smallImgsContainer.innerHTML = '';
 
     if (post.images && post.images.length > 0) {
-      const firstImageUrl = post.images[0].url;
+        
+      const formatImageUrl = (url) => {
+          // Função auxiliar para garantir o URL completo do Uploadcare
+          if (url && url.length > 30 && !url.startsWith('http')) {
+              return `https://ucarecdn.com/${url}/`;
+          }
+          return url;
+      };
+
+      const firstImageUrl = formatImageUrl(post.images[0].url);
       const bigImg = document.createElement('img');
       bigImg.src = firstImageUrl;
       bigImg.alt = `Foto de ${post.pet_name}`;
       bigImgContainer.appendChild(bigImg);
 
       post.images.forEach(image => {
+        const imageUrl = formatImageUrl(image.url);
+
         const smallImgContainer = document.createElement('div');
         smallImgContainer.className = 'small-img-container';
         const smallImg = document.createElement('img');
-        smallImg.src = image.url;
+        smallImg.src = imageUrl;
         smallImg.alt = "Thumbnail";
-        smallImg.addEventListener('click', () => { bigImg.src = image.url; });
+        smallImg.addEventListener('click', () => { bigImg.src = imageUrl; });
         smallImgContainer.appendChild(smallImg);
         smallImgsContainer.appendChild(smallImgContainer);
       });

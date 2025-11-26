@@ -24,9 +24,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       const postElement = document.createElement('div');
       postElement.className = 'found-dog-container';
 
-      const imageUrl = (post.images && post.images.length > 0) 
+      let imageUrl = (post.images && post.images.length > 0) 
                          ? post.images[0].url 
                          : '/imgs/upload-img.png';
+      
+      // CORREÇÃO: Verifica se é um UUID do Uploadcare e o completa
+      if (imageUrl.length > 30 && !imageUrl.startsWith('http')) {
+          imageUrl = `https://ucarecdn.com/${imageUrl}/`;
+      }
       
       const altText = `Foto de ${post.pet_name || 'cachorro perdido'}`;
 
