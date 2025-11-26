@@ -1,78 +1,68 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('create-post-form');
+    const loadingMessage = document.getElementById('loading-message');
+    const submitButton = document.getElementById('submit-button');
+    
+    // O UPLOADCARE_PUBLIC_KEY DEVE ESTAR NO HTML
 
-  const imageInput = document.getElementById("pet-image-upload");
-  const imageContainer = document.getElementById("image-preview-container");
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-  if (imageInput && imageContainer) {
-    imageInput.addEventListener("change", function () {
-      const files = this.files;
+        loadingMessage.style.display = 'block';
+        submitButton.disabled = true;
 
-      imageContainer.innerHTML = "";
+        const formData = new FormData(form);
+        const postData = {};
 
-      if (files.length > 0) {
-        Array.from(files).forEach((file) => {
-          if (file.type.startsWith("image/")) {
-            const reader = new FileReader();
+        // Coletar dados do formulário, convertendo para um objeto JSON
+        for (const [key, value] of formData.entries()) {
+            if (key === 'images_urls') {
+                // O Uploadcare retorna os UUIDs/URLs separados por nova linha ('\n')
+                postData[key] = value.split('\n').filter(url => url.trim() !== '');
+            } else {
+                postData[key] = value;
+            }
+        }
+        
+        // Objeto final a ser enviado como JSON
+        const requestBody = {
+            ...postData,
+            images_urls: postData.images_urls || []
+        };
+        
+        // Validação de Imagens
+        if (requestBody.images_urls.length === 0) {
+            alert('Por favor, envie pelo menos uma imagem usando o seletor.');
+            loadingMessage.style.display = 'none';
+            submitButton.disabled = false;
+            return;
+        }
 
-            reader.onload = function (e) {
-              const img = document.createElement("img");
-              img.src = e.target.result;
-              
-              img.classList.add("preview-thumb"); 
-              
-              imageContainer.appendChild(img);
-            };
+        try {
+            // Enviar os dados via fetch
+            const response = await fetch('https://back-end-tf-web-two.vercel.app/lost_dog_posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // Mudar para JSON
+                },
+                body: JSON.stringify(requestBody), // Enviar o objeto JSON
+            });
 
-            reader.readAsDataURL(file);
-          }
-        });
-      } else {
-        imageContainer.innerHTML =
-          '<img src="/imgs/upload-img.png" alt="Selecione a imagem" id="image-preview">';
-      }
+            const result = await response.json();
+
+            if (response.ok) {
+                alert('Post criado com sucesso! ID: ' + result.postId);
+                window.location.href = '/lost-dog-menu.html';
+            } else {
+                alert('Erro ao criar post: ' + (result.error || 'Ocorreu um erro desconhecido.'));
+            }
+
+        } catch (error) {
+            console.error('Erro de rede:', error);
+            alert('Erro de conexão com o servidor. Tente novamente. Verifique se o domínio do back-end está correto.');
+        } finally {
+            loadingMessage.style.display = 'none';
+            submitButton.disabled = false;
+        }
     });
-  }
-
-  const postForm = document.getElementById("create-post-form");
-  const submitButton = document.getElementById("submit-button");
-
-  let feedbackMessage = document.querySelector(".feedback-message");
-  if (!feedbackMessage && postForm) {
-      feedbackMessage = document.createElement("p");
-      feedbackMessage.className = "feedback-message";
-      postForm.appendChild(feedbackMessage);
-  }
-
-  if (postForm) {
-    postForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      feedbackMessage.textContent = "Enviando post, por favor aguarde...";
-      feedbackMessage.style.color = "black";
-      submitButton.disabled = true;
-
-      try {
-        const formData = new FormData(postForm);
-        const response = await fetch("/lost_dog_posts", {
-          method: "POST",
-          body: formData,
-        });
-
-        const result = await response.json();
-
-        if (!response.ok) throw new Error(result.error || "Falha ao criar o post.");
-
-        feedbackMessage.textContent = "Post criado com sucesso! Redirecionando...";
-        feedbackMessage.style.color = "green";
-
-        setTimeout(() => window.location.href = "/lost-dog-menu.html", 2000);
-
-      } catch (error) {
-        console.error("Erro:", error);
-        feedbackMessage.textContent = `Erro: ${error.message}`;
-        feedbackMessage.style.color = "red";
-        submitButton.disabled = false;
-      }
-    });
-  }
 });

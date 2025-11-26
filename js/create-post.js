@@ -176,6 +176,115 @@ app.post('/lost_dog_posts', upload.array('images'), async (req, res) => {
   }
 });
 
+app.put('/lost_dog_posts/:id', upload.array('images'), async (req, res) => {
+  const postId = req.params.id;
+
+  const {
+    pet_name,
+    description,
+    breed,
+    color,
+    neighborhood,
+    accessory,
+    location_reference,
+    whatsapp,
+    instagram,
+    pet_age,
+    password,
+    adress
+  } = req.body;
+
+  const files = req.files;
+
+  if (!password) {
+    return res.status(400).json({ error: 'Senha é obrigatória para editar o post.' });
+  }
+
+  const client = await pool.connect();
+
+  try {
+    await client.query('BEGIN');
+
+    // Buscar post original
+    const originalPost = await client.query(
+      'SELECT * FROM lost_dog_posts WHERE id = $1',
+      [postId]
+    );
+
+    if (originalPost.rows.length === 0) {
+      return res.status(404).json({ error: 'Post não encontrado.' });
+    }
+
+    // Validar senha
+    const validPassword = await bcrypt.compare(password, originalPost.rows[0].password);
+
+    if (!validPassword) {
+      return res.status(401).json({ error: 'Senha incorreta.' });
+    }
+
+    // Atualizar post
+    const updateQuery = `
+      UPDATE lost_dog_posts SET
+        pet_name = $1,
+        description = $2,
+        breed = $3,
+        color = $4,
+        neighborhood = $5,
+        accessory = $6,
+        location_reference = $7,
+        whatsapp = $8,
+        instagram = $9,
+        pet_age = $10,
+        adress = $11
+      WHERE id = $12;
+    `;
+
+    await client.query(updateQuery, [
+      pet_name,
+      description,
+      breed,
+      color,
+      neighborhood,
+      accessory,
+      location_reference,
+      whatsapp,
+      instagram,
+      pet_age,
+      adress,
+      postId
+    ]);
+
+    // Se tiver novas imagens, salvar
+    if (files && files.length > 0) {
+      await client.query('DELETE FROM post_images WHERE post_id = $1', [postId]);
+
+      for (const file of files) {
+        const imageUrl = `/uploads/${file.filename}`;
+
+        await client.query(`
+          INSERT INTO post_images (post_id, image_url)
+          VALUES ($1, $2)
+        `, [postId, imageUrl]);
+      }
+    }
+
+    await client.query('COMMIT');
+
+    res.json({
+      message: 'Post atualizado com sucesso!',
+      updated_id: postId
+    });
+
+  } catch (err) {
+    await client.query('ROLLBACK');
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao atualizar post.' });
+  } finally {
+    client.release();
+  }
+});
+
 app.listen(port, () => {
   console.log(`Serviço rodando na porta: ${port}`);
 });
+
