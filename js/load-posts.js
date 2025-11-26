@@ -2,6 +2,27 @@ document.addEventListener("DOMContentLoaded", async () => {
   const dogMenu = document.querySelector(".dog-menu");
   const API_URL = 'https://back-end-tf-web-two.vercel.app';
 
+  const formatImageUrl = (url) => {
+    if (!url || url.startsWith('/imgs/')) {
+      return url; 
+    }
+    
+    let formattedUrl = url;
+
+    if (!formattedUrl.startsWith('http')) {
+      formattedUrl = `https://ucarecdn.com/${formattedUrl}`;
+    }
+
+    if (formattedUrl.includes('~') && !formattedUrl.includes('/nth/')) {
+      if (!formattedUrl.endsWith('/')) {
+        formattedUrl += '/';
+      }
+      formattedUrl += 'nth/0/';
+    }
+    
+    return formattedUrl;
+  };
+
   dogMenu.innerHTML = '<p class="loading-message">Carregando posts, por favor aguarde...</p>';
 
   try {
@@ -24,14 +45,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       const postElement = document.createElement('div');
       postElement.className = 'found-dog-container';
 
-      let imageUrl = (post.images && post.images.length > 0) 
+      const rawUrl = (post.images && post.images.length > 0) 
                          ? post.images[0].url 
                          : '/imgs/upload-img.png';
       
-      // CORREÇÃO: Verifica se é um UUID do Uploadcare e o completa
-      if (imageUrl.length > 30 && !imageUrl.startsWith('http')) {
-          imageUrl = `https://ucarecdn.com/${imageUrl}/`;
-      }
+      const imageUrl = formatImageUrl(rawUrl);
       
       const altText = `Foto de ${post.pet_name || 'cachorro perdido'}`;
 

@@ -5,6 +5,27 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const mainContainer = document.querySelector('.content-box-post');
 
+  const formatImageUrl = (url) => {
+    if (!url || url.startsWith('/imgs/')) {
+      return url; 
+    }
+    
+    let formattedUrl = url;
+
+    if (!formattedUrl.startsWith('http')) {
+      formattedUrl = `https://ucarecdn.com/${formattedUrl}`;
+    }
+
+    if (formattedUrl.includes('~') && !formattedUrl.includes('/nth/')) {
+      if (!formattedUrl.endsWith('/')) {
+        formattedUrl += '/';
+      }
+      formattedUrl += 'nth/0/';
+    }
+    
+    return formattedUrl;
+  };
+
   if (!postId) {
     mainContainer.innerHTML = "<h1>Erro: ID do post não fornecido.</h1>";
     return;
@@ -57,14 +78,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (post.images && post.images.length > 0) {
         
-      const formatImageUrl = (url) => {
-          // Função auxiliar para garantir o URL completo do Uploadcare
-          if (url && url.length > 30 && !url.startsWith('http')) {
-              return `https://ucarecdn.com/${url}/`;
-          }
-          return url;
-      };
-
       const firstImageUrl = formatImageUrl(post.images[0].url);
       const bigImg = document.createElement('img');
       bigImg.src = firstImageUrl;
