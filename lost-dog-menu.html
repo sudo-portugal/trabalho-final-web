@@ -40,7 +40,27 @@
     <div class="dog-main-menu">
       <div class="dog-top-menu">
         <div class="filter-search">
-          <button class="btn-filter">Selecionar Filtros</button>
+          <div class="filter-controls">
+              <select id="filter-breed" class="filter-select">
+                  <option value="">Raça (Todas)</option>
+                  <option value="Labrador">Labrador</option>
+                  <option value="Vira-lata">Vira-lata</option>
+                  <option value="Poodle">Poodle</option>
+                  <option value="Pitbull">Pitbull</option>
+                  <option value="Bulldog">Bulldog</option>
+              </select>
+              <input type="text" id="filter-neighborhood" class="filter-input" placeholder="Bairro (Buscar)">
+              <select id="filter-color" class="filter-select">
+                  <option value="">Cor (Todas)</option>
+                  <option value="Caramelo">Caramelo</option>
+                  <option value="Preto">Preto</option>
+                  <option value="Branco">Branco</option>
+                  <option value="Marrom">Marrom</option>
+                  <option value="Cinza">Cinza</option>
+              </select>
+              <button id="apply-filters-btn" class="btn-filter">Aplicar Filtros</button>
+              <button id="clear-filters-btn" class="btn-filter clear-btn">Limpar</button>
+          </div>
         </div>
       </div>
 
