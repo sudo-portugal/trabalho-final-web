@@ -533,6 +533,14 @@ h2 {
     background: #FFF;
 }
 
+.dog-color {
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid #000;
+    background: #FFF;
+}
+
 .pet-color {
     width: 75px;
     height: 30px;
