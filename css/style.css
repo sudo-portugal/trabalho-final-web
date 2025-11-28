@@ -5,11 +5,11 @@ html {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height:100%;
 }
 
 main {
-    flex: 1;
+    flex-grow: 1;
 }
 
 *,
@@ -28,6 +28,7 @@ body {
     margin: 0;
     padding: 0;
     background: #FDF4DB;
+    height:100%;
     max-width: 100%;
     overflow-x: hidden;
 }
@@ -87,6 +88,13 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+}
+
+#page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .center {
@@ -263,7 +271,8 @@ h2 {
     border-radius: 50px 50px 0px 0px;
     justify-content: center;
     align-items: center;
-    height: 60px;
+    height: auto;
+    padding: 15px;
 }
 
 .btn-filter {
@@ -372,7 +381,7 @@ h2 {
     margin-right: 50px;
     margin-left: 50px;
     margin-top: 70px;
-    margin-bottom: 154px;
+    margin-bottom: 118px;
     display: flex;
     border-radius: 50px;
     border: 10px solid #5F8D4E;
@@ -380,6 +389,7 @@ h2 {
     max-width: 1200px;
     height: 450px;
     padding: 20px;
+    zoom: 1.15;
 }
 
 .content-box-imgs {
@@ -488,13 +498,14 @@ h2 {
 .content-box-create-post {
     margin-right: 50px;
     margin-left: 50px;
-    margin-bottom: 120px;
+    margin-bottom: 126px;
     display: flex;
     border-radius: 50px;
     border: 10px solid #5F8D4E;
     background: #FFE3CE;
     max-width: 1200px;
     padding: 20px;
+    zoom: 1.25;
 }
 
 .content-box-create-desc {
@@ -515,6 +526,8 @@ h2 {
     border-radius: 10px;
     border: 1px solid #000;
     background: #FFF;
+    vertical-align: top;
+    resize: vertical;
 }
 
 .social {
@@ -534,7 +547,7 @@ h2 {
 }
 
 .dog-color {
-    width: 100px;
+    width: 80px;
     height: 30px;
     border-radius: 10px;
     border: 1px solid #000;
@@ -720,7 +733,35 @@ a #zoom {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
+
+.filter-search {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 10px;
+}
+
+.filter-select, .filter-input {
+    border-radius: 10px;
+    border: 1px solid #000;
+    background: #FFF;
+    height: 30px;
+}
+
+
 
 @media (max-width: 768px) {
 
@@ -834,10 +875,12 @@ a #zoom {
         padding: 15px;
     }
 
-    .content-box-post .content-box-imgs {
+    .content-box-post, .content-box-imgs {
         display: block;
         position: static;
-        margin: 0;
+        margin-left: 0px;
+        margin-right: 0px;
+
     }
 
     .content-box-post .big-img-container {
@@ -920,6 +963,8 @@ a #zoom {
 
     .pet-description {
         height: 100px;
+        vertical-align: top;
+         resize: vertical;
     }
 
     .pet-adorno {
@@ -985,3 +1030,4 @@ a #zoom {
         width: 100%;
     }
 }
+

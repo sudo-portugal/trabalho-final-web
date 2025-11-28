@@ -9,127 +9,138 @@
 </head>
 
 <body>
-  <header>
-    <nav class="nav-bar">
-      <div class="nav-bar-left">
-        <div class="circle">
-          <a href="index.html"><img src="/imgs/logo-75x75.png" id="logo-header"> </a>
+  <div id="page-container">
+
+    <header>
+      <nav class="nav-bar">
+        <div class="nav-bar-left">
+          <div class="circle">
+            <a href="index.html"><img src="/imgs/logo-75x75.png" id="logo-header"> </a>
+          </div>
+          
+          <a href="index.html">
+            <p class="SiteLogoName">MeuCachorroTáSumido</p>
+          </a>
         </div>
-
-        <a href="index.html">
-          <p class="SiteLogoName">MeuCachorroTáSumido</p>
-        </a>
-      </div>
-
-
-      <div class="center">
-        <div class="nav-bar-center">
-          <ul class="nav-list">
-            <li class="nav-item"> <a href="/lost-dog-menu.html">Cachorros perdidos</a></li>
-            <li class="nav-item"> <a href="/create-lost-dog-post.html">Perdi meu cachorro</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="nav-bar-right">
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <div class="dog-main-menu">
-      <div class="dog-top-menu">
-        <div class="filter-search">
-          <div class="filter-controls">
-              <select id="filter-breed" class="filter-select">
-                  <option value="">Raça (Todas)</option>
-                  <option value="Não sei">Não sei</option>
-                  <option value="Vira-lata">Vira-lata</option>
-                  <option value="Labrador">Labrador</option>
-                  <option value="Poodle">Poodle</option>
-                  <option value="Bulldog">Bulldog</option>
-                  <option value="Pastor Alemão">Pastor Alemão</option>
-                  <option value="Golden Retriever">Golden Retriever</option>
-                  <option value="Pitbull">Pitbull</option>
-                  <option value="Shih Tzu">Shih Tzu</option>
-                  <option value="Yorkshire Terrier">Yorkshire Terrier</option>
-                  <option value="Rottweiler">Rottweiler</option>
-                  <option value="Dachshund">Dachshund</option>
-                  <option value="Chihuahua">Chihuahua</option>
-                  <option value="Beagle">Beagle</option>
-                  <option value="Boxer">Boxer</option>
-                  <option value="Pug">Pug</option>
-                  <option value="Cocker Spaniel">Cocker Spaniel</option>
-                  <option value="Maltês">Maltês</option>
-                  <option value="Border Collie">Border Collie</option>
-                  <option value="Husky Siberiano">Husky Siberiano</option>
-                  <option value="Doberman">Doberman</option>
-                  <option value="Cane Corso">Cane Corso</option>
-                  <option value="Schnauzer">Schnauzer</option>
-                  <option value="Bichon Frise">Bichon Frise</option>
-                  <option value="Akita">Akita</option>
-                  <option value="São Bernardo">São Bernardo</option>
-                  <option value="Boston Terrier">Boston Terrier</option>
-                  <option value="Cavalier King Charles Spaniel">Cavalier King Charles Spaniel</option>
-                  <option value="Dogue Alemão">Dogue Alemão</option>
-                  <option value="Jack Russell Terrier">Jack Russell Terrier</option>
-                  <option value="Lhasa Apso">Lhasa Apso</option>
-                  <option value="Pomerânia">Pomerânia</option>
-                  <option value="Setter Irlandês">Setter Irlandês</option>
-                  <option value="Weimaraner">Weimaraner</option>
-                  <option value="Whippet">Whippet</option>
-                  <option value="Outro">Outro</option>
-              </select>
-              <input type="text" id="filter-neighborhood" class="filter-input" placeholder="Bairro (Buscar)">
-              <select id="filter-color" class="filter-select">
-                  <option value="">Cor (Todas)</option>
-                  <option value="Preto">Preto</option>
-                  <option value="Branco">Branco</option>
-                  <option value="Marrom">Marrom</option>
-                  <option value="Caramelo">Caramelo</option>
-                  <option value="Cinza">Cinza</option>
-                  <option value="Dourado">Dourado</option>
-                  <option value="Creme">Creme</option>
-                  <option value="Bicolor">Bicolor</option>
-                  <option value="Tricolor">Tricolor</option>
-                  <option value="Malhado/Misto">Malhado/Misto</option>
-                  <option value="Ruivo/Vermelho">Ruivo/Vermelho</option>
-                  <option value="Outro">Outro</option>
-              </select>
-              <button id="apply-filters-btn" class="btn-filter">Aplicar Filtros</button>
-              <button id="clear-filters-btn" class="btn-filter clear-btn">Limpar</button>
+        
+        
+        <div class="center">
+          <div class="nav-bar-center">
+            <ul class="nav-list">
+              <li class="nav-item"> <a href="/lost-dog-menu.html">Cachorros perdidos</a></li>
+              <li class="nav-item"> <a href="/create-lost-dog-post.html">Perdi meu cachorro</a></li>
+            </ul>
           </div>
         </div>
-      </div>
-
-      <div class="dog-menu">
+        
+        <div class="nav-bar-right">
         </div>
-
-
-      <div class="dog-bottom-menu">
+      </nav>
+    </header>
+    
+    <main>
+      <div class="dog-main-menu">
+        <div class="dog-top-menu">
+          <div class="filter-search">
+            <div class="filter-controls">
+              <select id="filter-breed" class="filter-select">
+                <option value="">Raça (Todas)</option>
+                <option value="Não sei">Não sei</option>
+                <option value="Vira-lata">Vira-lata</option>
+                <option value="Labrador">Labrador</option>
+                <option value="Poodle">Poodle</option>
+                <option value="Bulldog">Bulldog</option>
+                <option value="Pastor Alemão">Pastor Alemão</option>
+                <option value="Golden Retriever">Golden Retriever</option>
+                <option value="Pitbull">Pitbull</option>
+                <option value="Shih Tzu">Shih Tzu</option>
+                <option value="Yorkshire Terrier">Yorkshire Terrier</option>
+                <option value="Rottweiler">Rottweiler</option>
+                <option value="Dachshund">Dachshund</option>
+                <option value="Chihuahua">Chihuahua</option>
+                <option value="Beagle">Beagle</option>
+                <option value="Boxer">Boxer</option>
+                <option value="Pug">Pug</option>
+                <option value="Cocker Spaniel">Cocker Spaniel</option>
+                <option value="Maltês">Maltês</option>
+                <option value="Border Collie">Border Collie</option>
+                <option value="Husky Siberiano">Husky Siberiano</option>
+                <option value="Doberman">Doberman</option>
+                <option value="Cane Corso">Cane Corso</option>
+                <option value="Schnauzer">Schnauzer</option>
+                <option value="Bichon Frise">Bichon Frise</option>
+                <option value="Akita">Akita</option>
+                <option value="São Bernardo">São Bernardo</option>
+                <option value="Boston Terrier">Boston Terrier</option>
+                <option value="Cavalier King Charles Spaniel">Cavalier King Charles Spaniel</option>
+                <option value="Dogue Alemão">Dogue Alemão</option>
+                <option value="Jack Russell Terrier">Jack Russell Terrier</option>
+                <option value="Lhasa Apso">Lhasa Apso</option>
+                <option value="Pomerânia">Pomerânia</option>
+                <option value="Setter Irlandês">Setter Irlandês</option>
+                <option value="Weimaraner">Weimaraner</option>
+                <option value="Whippet">Whippet</option>
+                <option value="Outro">Outro</option>
+              </select>
+              
+              <select id="filter-color" class="filter-select">
+                <option value="">Cor (Todas)</option>
+                <option value="Preto">Preto</option>
+                <option value="Branco">Branco</option>
+                <option value="Marrom">Marrom</option>
+                <option value="Caramelo">Caramelo</option>
+                <option value="Cinza">Cinza</option>
+                <option value="Dourado">Dourado</option>
+                <option value="Creme">Creme</option>
+                <option value="Bicolor">Bicolor</option>
+                <option value="Tricolor">Tricolor</option>
+                <option value="Malhado/Misto">Malhado/Misto</option>
+                <option value="Ruivo/Vermelho">Ruivo/Vermelho</option>
+                <option value="Outro">Outro</option>
+              </select>
+              
+              <input type="text" id="filter-neighborhood" class="filter-input" placeholder="Bairro (Buscar)">
+              
+              
+            </div>
+            
+            <div class="filter-buttons">
+              <button id="apply-filters-btn" class="btn-filter">Aplicar</button>
+              <button id="clear-filters-btn" class="btn-filter clear-btn">Limpar</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="dog-menu">
+        </div>
+        
+        
+        <div class="dog-bottom-menu">
+        </div>
       </div>
-    </div>
-
+      
     </main>
-
-  <footer>
-    <div class="footer-left">
-      <img src="/imgs/logo-50x50.png" alt="" class="logo-footer">
-    </div>
-
-    <div class="footer-center">
-      <span class="copyright">
-        &copy 2025 MeuCachorroTáSumido
-      </span>
-    </div>
-
-    <div class="footer-right">
-
-    </div>
-  </footer>
-
-  <script src="/js/load-posts.js"></script>
-
-</body>
-
-</html>
+    
+    <footer>
+      <div class="footer-left">
+        <img src="/imgs/logo-50x50.png" alt="" class="logo-footer">
+      </div>
+      
+      <div class="footer-center">
+        <span class="copyright">
+          &copy 2025 MeuCachorroTáSumido
+        </span>
+      </div>
+      
+      <div class="footer-right">
+        
+      </div>
+    </footer>
+    
+    <script src="/js/load-posts.js"></script>
+    
+  </div>
+  
+  </body>
+  
+  </html>
