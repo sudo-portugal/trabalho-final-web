@@ -334,6 +334,25 @@ h2 {
     padding: 30px;
 }
 
+.dog-menu > div {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+
+.dog-menu img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover; 
+      object-position: center;
+      border-bottom: 1px solid #eee;
+}
+
 .found-dog-container {
     display: flex;
     border-radius: 25px;
